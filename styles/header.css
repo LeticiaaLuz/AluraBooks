@@ -1,0 +1,187 @@
+.cabecalho__menu-hamburguer {
+    width: 48px;
+    height: 48px;
+    background-image: url(../assets/Menu.svg); /* colocou dois pontos na frente pois
+    o assets esta na pagina do alurabooks, entao ele precisou sair d apasta style e voltar
+    para a pagina do alurabooks, para achar os diretorios*/
+    background-repeat: no-repeat;
+    background-position: center; /* serve para centralizar o elemento que está no background */
+    display: inline-block; /* se fosse inline não iria permitir os ajustes de 
+    widht e de height */
+}
+
+.container__botao:checked ~ .container__rotulo > .cabecalho__menu-hamburguer /* queremos que o elemento da classe
+.cabecalho__menu-hamburguer mude, mas ela ta dentro de .container__rotulo, logoo temos que utilizar o sinal de >,
+se nao colocar o sinal não vai conseguir achar a classe pq ela está dentro de oura classe */ {
+    background-image: url(../assets/Menu\ Aberto.svg);
+}
+
+.container__botao:checked ~ .container__rotulo {
+    background: var(--azul-degrade);
+}
+
+.cabecalho {
+    background-color: var(--branco);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative; /* libera outros atributos, vc pode botar top, left, bottom. Foi colocado para conserguimos
+    mudar o elemento filho lista-menu. Para o .cabecalho ser um elemento diferente de static */
+}
+
+.container {
+    display: flex;
+    align-items: center;
+}
+
+.container__botao {
+    display: none; /* para nao aparecer o quadradinho de check */
+}
+
+.container__imagem {
+    padding: 0.8em;
+}
+
+.lista-menu {
+    display: none; /* o elemento não vai aparecer na tela e não vai ocupar espaço nenhum*/
+    position: absolute; /*permite que vc movimente de acordo com o elemento pai/elemento anterior 
+    se tal elemento não for de position static */
+    top: 100%; /*tirou 100% do elemento pai/cabecalho e ficou pra baixo. ACHO que é em relação ao topo do
+    elemento do .lista-menu*/
+    width: 65vw; /* vw- viewport widht, em relacao a tela do dispositivo */
+}
+
+.container__botao:checked ~ .lista-menu { /* quando o input estiver em checked o display do elemento que esta 
+    na classe .lista-menu vai mudar para display block */
+    display: block;
+}
+
+.lista-menu__titulo,
+.lista-menu__item {
+    padding: 1em;
+    background-color: var(--branco)
+}
+
+.lista-menu__titulo {
+    color: var(--laranja);
+    font-weight: 700;
+}
+
+.lista-menu__link {
+    background: var(--azul-degrade); /* nao da pra colocar uma cor gradiente direto na fonte,
+     por isso essas outras informacoes foram adicionadas*/
+
+      /* o webkit serve para a propriedade funcionaar em qualquer
+    tipo de navegador */
+
+    -webkit-background-clip: text; /* faz com que a cor de background fique só onde tem texto */
+    -webkit-text-fill-color: transparent; /* especifica a cor do preenchimento do caracter do texto 
+    se não tiver essa prorpiedade, vai ficar da cor que está no color. Como não temos color, vai ficar da cor normal,
+    essa propriedade faz não aplicar enhuma cor além do background que foi aplicado*/
+    background-clip: text;
+ 
+    /* todas as informaçoes acima foral tiradas do figma */
+
+    text-transform: uppercase; /* vai ficar tudo maiusculo */
+}
+
+.container__titulo, .opcoes, .container__texto {
+    display: none; /* pra sair quando nao estiver no media querie */
+}
+
+@media screen and (min-width: 1024px) /* como começamos a fazer para mobile primeiro, vamos usar o min */ {
+    .container__titulo,
+    .container__titulo-negrito {
+        font-size: 30px;
+        font-family: var(--fonte-secundaria);
+    }
+
+    .container__titulo-negrito {
+        font-weight: 700;
+    }
+
+    .container__titulo {
+        font-weight: 300;
+        display: block; /* para aparecer na tela, já que foi retirado lá em cima */
+    }
+
+    .opcoes {
+        display: flex;
+    }
+
+    .opcoes__botao:checked ~ .opcoes__rotulo > .opcoes__item {
+        background: var(--azul-degrade);
+        color: var(--branco);
+    }
+
+    .lista-menu__item:hover {
+        background: var(--azul-degrade);
+    }
+
+    .lista-menu__item:hover > .lista-menu__link /* aqui estamos especificando que quem vai mudar é o elemento
+    da classe .lista-menu__link que esta dentro de .lista-menu__item, por isso o sinal de >, massss
+    vai mudar quando o mouse passar por cima do elemento que tem a classe .lista-menu__item */ {
+        -webkit-text-fill-color: var(--branco); /* precisa disso pois para mobile utilizamos webkit porque
+        foi utilizado um degrade */
+        text-decoration: none; /* a decoracao do link tinha sumido por causa dos webkits anteriores, mas como
+        tiramos acabou aparecendo as decorações e agora foi necessario a propriedade text-decoration: none para
+        realmente remover essa decoração */
+    }
+
+    .opcoes__item {
+        padding: 2em 1em;
+        text-transform: uppercase;
+
+    }
+
+    .opcoes__link {
+        text-decoration: none;
+        color: var(--preto);
+    }
+
+    .container__imagem-favoritos,
+    .cabecalho__menu-hamburguer {
+        display: none;
+    }
+
+    .opcoes__botao:checked ~ .lista-menu {
+        display: block;
+        width: auto;
+
+    }
+
+    .opcoes__botao {
+        display: none;
+    }
+}
+
+/* OBSERVAÇÃ0: 1728>1024, logoooo as prorpiedades que foram postas para o tablet vão permanecer para desktop */
+
+@media screen and (min-width: 1728px) {
+    .container__link {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: var(--preto);
+    }
+
+    .container__titulo {
+        margin-right: 1.5em;
+    }
+
+    .container__texto {
+        display: block;
+    }
+
+    .cabecalho {
+        padding: 0em 2em;
+    }
+
+    .opcoes {
+        margin-right: auto; /* vai colcoar toda a margem para a direita, então o elemento acaba ficando todo
+        para a esquerda */
+
+        /* QUANDO COLOCAMOS UM VALOR AUTO -- ELE TENTA PREENCHER TODO OS ESPAO QUE ESTÁ SOBRANDO -- */
+
+    }
+}
